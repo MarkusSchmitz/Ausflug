@@ -1,4 +1,3 @@
-// Liste der Hinweise (neutral formuliert)
 const hints = [
     "🌳 Dieser Ort liegt in Deutschland und ist von malerischen Wäldern und einem Fluss umgeben.",
     "🏰 Der Ort ist berühmt für seine historische Architektur und ist eines der beliebtesten Ausflugsziele in Rheinland-Pfalz.",
@@ -10,20 +9,33 @@ const hints = [
     "🎯 Ziel: Ein historischer Ort mit einer beeindruckenden Geschichte – kannst du ihn erraten?"
 ];
 
-// Karten initialisieren
 const quizContainer = document.getElementById("quiz-container");
+const overviewSection = document.getElementById("overview-section");
+const quizSection = document.getElementById("quiz-section");
 
 hints.forEach((hint, index) => {
     const card = document.createElement("div");
     card.className = "card hidden";
     card.innerHTML = `<h2>Hinweis ${index + 1}</h2><p>🔒 Klicken zum Aufdecken</p>`;
-    card.addEventListener("click", () => revealHint(card, hint));
+    card.addEventListener("click", () => revealHint(card, hint, index));
     quizContainer.appendChild(card);
 });
 
-// Funktion, um Hinweise aufzudecken
-function revealHint(card, hint) {
+function revealHint(card, hint, index) {
     card.classList.remove("hidden");
     card.classList.add("revealed");
-    card.innerHTML = `<h2>Hinweis ${card.textContent.split(" ")[1]}</h2><p>${hint}</p>`;
+    card.innerHTML = `<h2>Hinweis ${index + 1}</h2><p>${hint}</p>`;
+    if (index === hints.length - 1) {
+        setTimeout(() => showOverview(), 1000);
+    }
+}
+
+function showOverview() {
+    quizSection.classList.add("hidden");
+    overviewSection.classList.remove("hidden");
+}
+
+function goBack() {
+    quizSection.classList.remove("hidden");
+    overviewSection.classList.add("hidden");
 }
