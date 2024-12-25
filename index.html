@@ -8,10 +8,41 @@
 </head>
 <body>
     <div class="container">
-        <h1>Welcher Ausflugsort ist gemeint? 🌍</h1>
-        <p>Klicke auf die Kacheln, um die Hinweise aufzudecken. Kannst du erraten, um welchen Ort es sich handelt?</p>
-        <div id="quiz-container">
-            <!-- Cards werden dynamisch hinzugefügt -->
+        <div id="quiz-section">
+            <h1>Welcher Ausflugsort ist gemeint? 🌍</h1>
+            <p>Klicke auf die Kacheln, um die Hinweise aufzudecken. Kannst du erraten, um welchen Ort es sich handelt?</p>
+            <div id="quiz-container">
+                <!-- Cards werden dynamisch hinzugefügt -->
+            </div>
+        </div>
+        <div id="overview-section" class="hidden">
+            <h1>Entdecke Burg Eltz 🏰</h1>
+            <p>Burg Eltz ist eine der bekanntesten Burgen Deutschlands und beeindruckt durch ihre einzigartige Architektur und Geschichte.</p>
+            <div class="image-gallery">
+                <img src="https://images.app.goo.gl/sb4qZjjpknicUT6X9" alt="Burg Eltz Breitbild">
+                <img src="https://images.app.goo.gl/h1akd9agKbcc2M6D6" alt="Burg Eltz im Sommer">
+                <img src="https://images.app.goo.gl/ZtVPVMS8jXiEirHL8" alt="Burg Eltz Innenansicht">
+            </div>
+            <h2>Beispielhafter Zeitplan für einen Ausflug</h2>
+            <ul>
+                <li><b>Tag 1:</b>
+                    <ul>
+                        <li>10:00 Uhr – Anreise in die Region.</li>
+                        <li>12:00 Uhr – Wanderung zum Aussichtspunkt nahe der Burg.</li>
+                        <li>14:00 Uhr – Mittagessen in einem lokalen Restaurant.</li>
+                        <li>15:30 Uhr – Besuch und Besichtigung von Burg Eltz.</li>
+                        <li>17:30 Uhr – Rückkehr ins Hotel oder Pension.</li>
+                    </ul>
+                </li>
+                <li><b>Tag 2:</b>
+                    <ul>
+                        <li>08:00 Uhr – Frühstück und Spaziergang entlang des Elzbaches.</li>
+                        <li>10:00 Uhr – Entdeckung der Umgebung: Besichtigung der Burg Pyrmont oder anderer Sehenswürdigkeiten.</li>
+                        <li>12:30 Uhr – Mittagessen und Rückreise.</li>
+                    </ul>
+                </li>
+            </ul>
+            <button onclick="goBack()">Zurück zum Quiz</button>
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animate.js/4.1.1/animate.min.js"></script>
