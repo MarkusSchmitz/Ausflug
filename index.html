@@ -2,42 +2,480 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcher Ausflugsort ist gemeint?</title>
-    <link rel="stylesheet" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Familienausflug Burg Eltz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            /* Updated Background image styling */
+            background-image: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url('https://d2exd72xrrp1s7.cloudfront.net/www/000/1k8/12/122pkzprfq5tabjvjihgziuyw54ckqx1u-uhi78491293/0?width=3072&height=2304&crop=false&q=70'); /* New image URL */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Keep background fixed during scroll */
+        }
+
+        /* Frosted glass effect for cards */
+        .frosted-glass {
+            backdrop-filter: blur(14px) saturate(160%); /* Slightly increased blur/saturation */
+            -webkit-backdrop-filter: blur(14px) saturate(160%); /* Safari */
+            background-color: rgba(255, 255, 255, 0.1); /* Slightly more transparent */
+            border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border */
+            transition: all 0.3s ease-in-out; /* Smooth transitions */
+            position: relative; /* Needed for absolute positioning of the expand indicator */
+        }
+
+        /* Styling for expanded card */
+        .card.expanded {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 95vw; /* Slightly wider on mobile */
+            max-width: 800px; /* Max width for larger screens */
+            height: 90vh; /* Taller on mobile */
+            max-height: 650px; /* Max height overall */
+            z-index: 50;
+            overflow-y: auto; /* Allow scrolling within expanded card */
+            padding: 1.5rem 1rem 1rem 1rem; /* Adjusted padding for mobile */
+        }
+         /* Apply more padding on larger screens for expanded card */
+        @media (min-width: 768px) {
+            .card.expanded {
+                 padding: 2rem;
+            }
+        }
+
+
+        /* Overlay for background when card is expanded */
+        #overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8); /* Darker overlay */
+            z-index: 40; /* Below expanded card */
+            display: none; /* Hidden by default */
+            backdrop-filter: blur(8px); /* Stronger blur background */
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        /* Ensure icons render correctly */
+        i[data-lucide] {
+            display: inline-block;
+            width: 1em;
+            height: 1em;
+            stroke-width: 2;
+            vertical-align: middle;
+        }
+
+        /* Custom gradient for title */
+        .title-gradient {
+            background: linear-gradient(90deg, #ff8a00, #e52e71); /* Example gradient */
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* Hide scrollbar for expanded card content, but allow scrolling */
+        .expanded-content::-webkit-scrollbar {
+            display: none; /* Safari and Chrome */
+        }
+        .expanded-content {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+            max-height: calc(90vh - 4rem); /* Ensure content doesn't overflow buttons etc. */
+            overflow-y: auto;
+        }
+
+        /* Ensure links are visible */
+        a {
+            color: #a5d8ff; /* Lighter blue for better visibility */
+            text-decoration: underline;
+            transition: color 0.2s ease;
+        }
+        a:hover {
+            color: #ffffff; /* Brighter on hover */
+        }
+
+         /* Style for close button */
+        .close-button {
+            position: absolute; /* Changed to absolute */
+            top: 0.75rem; /* Adjusted position */
+            right: 0.75rem; /* Adjusted position */
+            background: rgba(0,0,0,0.4);
+            border-radius: 50%;
+            padding: 0.3rem; /* Slightly larger tap target */
+            cursor: pointer;
+            transition: background 0.2s ease;
+            z-index: 51; /* Ensure it's above content */
+        }
+        .close-button:hover {
+            background: rgba(0,0,0,0.6);
+        }
+        .close-button i {
+            display: block;
+            width: 1.1rem; /* Slightly larger icon */
+            height: 1.1rem;
+        }
+
+        /* Style for expand indicator */
+        .expand-indicator {
+            position: absolute;
+            bottom: 0.5rem;
+            right: 0.75rem;
+            color: rgba(255, 255, 255, 0.5); /* Subtle color */
+            transition: opacity 0.3s ease;
+        }
+        .card.expanded .expand-indicator {
+            opacity: 0; /* Hide when expanded */
+        }
+        .expand-indicator i {
+             width: 0.9rem;
+             height: 0.9rem;
+             stroke-width: 2.5;
+        }
+
+        /* Table Styling */
+        .timeline-table th, .timeline-table td {
+            padding: 0.5rem 0.75rem; /* Cell padding */
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Subtle row separator */
+        }
+        .timeline-table th {
+            font-weight: bold;
+            color: rgba(255, 255, 255, 0.8); /* Slightly lighter header text */
+        }
+        .timeline-table tr:last-child th,
+        .timeline-table tr:last-child td {
+             border-bottom: none; /* Remove border from last row */
+        }
+        .timeline-table td:first-child { /* Style time column */
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.9);
+            white-space: nowrap; /* Prevent time from wrapping */
+        }
+
+    </style>
 </head>
-<body>
-    <div class="container">
-        <div id="quiz-section">
-            <h1>Welcher Ausflugsort ist gemeint? 🌍</h1>
-            <p>Klicke auf die Kacheln, um die Hinweise aufzudecken. Kannst du erraten, um welchen Ort es sich handelt?</p>
-            <div id="quiz-container">
-                <!-- Cards werden dynamisch hinzugefügt -->
+<body class="text-white min-h-screen p-4 md:p-8 antialiased"> <div id="overlay"></div>
+
+    <div class="container mx-auto max-w-6xl">
+        <h1 class="text-3xl sm:text-4xl md:text-6xl font-black text-center mb-6 md:mb-12 title-gradient">
+            Familienausflug Burg Eltz
+        </h1>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+
+            <div class="card frosted-glass rounded-2xl p-4 md:p-6 md:col-span-2 lg:col-span-2 cursor-pointer hover:scale-[1.03] transform transition-transform duration-300" data-content-id="overview-content">
+                 <button class="close-button hidden">
+                    <i data-lucide="x" class="text-white"></i>
+                </button>
+                <div class="flex items-center mb-3">
+                    <i data-lucide="info" class="mr-2 text-blue-300 w-5 h-5"></i>
+                    <h2 class="text-lg md:text-xl font-bold">Überblick</h2>
+                </div>
+                <p class="text-sm md:text-base text-gray-200 line-clamp-3">Liebe Familie, wir machen unseren ersten Ausflug zur Burg Eltz! Dies ist unser Plan für einen schönen gemeinsamen Tag...</p> <div id="overview-content" class="hidden expanded-content mt-4 text-sm md:text-base text-gray-200">
+                    <p>Dies ist unser Plan für einen schönen gemeinsamen Tag. Die Burg Eltz ist eine der bekanntesten und besterhaltenen Burgen Deutschlands, eingebettet in ein malerisches Tal. Sie war über 700 Jahre lang im Besitz derselben Familie.</p>
+                    <p class="mt-2">Wir werden wandern, die Burg besichtigen und optional noch Zeit in Cochem an der Mosel verbringen.</p>
+                     <img src="https://img.ecmaps.de/remote/.jpg?url=https%3A%2F%2Fresc.deskline.net%2Fimages%2FRPT%2F1%2F28e3b1ae-6b2f-432a-a33d-61cc7da66c97%2F99%2Fimage.jpg%3F637702396362800000&scale=both&mode=crop&quality=90&width=1920&height=1080" alt="[Bild der Burg Eltz]" class="mt-4 rounded-lg w-full h-auto object-cover max-h-60" onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/ffffff?text=Bild+nicht+gefunden';">
+                </div>
+                 <div class="expand-indicator">
+                    <i data-lucide="maximize-2"></i>
+                </div>
             </div>
-        </div>
-        <div id="overview-section" class="hidden">
-            <h1>Entdecke Burg Eltz 🏰</h1>
-            <p>Burg Eltz ist eine der bekanntesten Burgen Deutschlands und beeindruckt durch ihre einzigartige Architektur und Geschichte.</p>
-            <div class="image-gallery">
-                <img src="https://kulturland.rlp.de/fileadmin/_processed_/9/8/csm_Burg_Eltz_a6c33b7230.jpg" alt="Burg Eltz Breitbild">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREWpj7jO5TXoNWXWuGWeKIJLCSuk1gtliHOw&s" alt="Burg Eltz im Sommer">
-                <img src="https://burg-eltz.de/files/cto_layout/img/Burg/Burgfuerung/8%20Jagdzimmer.jpg" alt="Burg Eltz Innenansicht">
+
+            <div class="card frosted-glass rounded-2xl p-4 md:p-6 md:col-span-1 lg:col-span-2 cursor-pointer hover:scale-[1.03] transform transition-transform duration-300" data-content-id="schedule-content">
+                 <button class="close-button hidden"><i data-lucide="x" class="text-white"></i></button>
+                <div class="flex items-center mb-3">
+                    <i data-lucide="calendar-clock" class="mr-2 text-green-300 w-5 h-5"></i>
+                    <h2 class="text-lg md:text-xl font-bold">Zeitplan</h2>
+                </div>
+                <ul class="list-disc list-inside text-sm md:text-base text-gray-200 space-y-1">
+                    <li>10:00 Treffen Parkplatz</li>
+                    <li>10:00-10:45 Wanderung</li>
+                    <li>11:00-12:30 Burgführung</li>
+                    <li>13:00-14:00 Essen</li>
+                </ul>
+                 <div id="schedule-content" class="hidden expanded-content mt-4 text-sm md:text-base text-gray-200">
+                     <h3 class="text-lg font-semibold mb-3">Detaillierter Zeitplan:</h3>
+                     <table class="w-full timeline-table">
+                         <thead>
+                             <tr>
+                                 <th>Zeit</th>
+                                 <th>Aktivität</th>
+                             </tr>
+                         </thead>
+                         <tbody>
+                             <tr>
+                                 <td>10:00 Uhr</td>
+                                 <td>Treffen am Parkplatz nahe der Burg</td>
+                             </tr>
+                             <tr>
+                                 <td>10:00 - 10:45 Uhr</td>
+                                 <td>Wanderung zur Burg Eltz (10 min direkt, 45 min Panorama Route)</td>
+                             </tr>
+                             <tr>
+                                 <td>11:00 - 12:30 Uhr</td>
+                                 <td>Burgführung (ca. 40 min, 14€ p.P.) + eigenständige Besichtigung (ca. 30 min)</td>
+                             </tr>
+                             <tr>
+                                 <td>13:00 - 14:00 Uhr</td>
+                                 <td>Mittagessen (Nähe Burg oder in Cochem)</td>
+                             </tr>
+                             <tr>
+                                 <td>14:15 - 15:30 Uhr</td>
+                                 <td>Optional: Besichtigung Reichsburg Cochem</td>
+                             </tr>
+                              <tr>
+                                 <td>15:30 - 17:00 Uhr</td>
+                                 <td>Optional: Spaziergang an der Moselpromenade Cochem</td>
+                             </tr>
+                             <tr>
+                                 <td>17:00 Uhr</td>
+                                 <td>Abreise</td>
+                             </tr>
+                         </tbody>
+                     </table>
+                </div>
+                 <div class="expand-indicator"><i data-lucide="maximize-2"></i></div>
             </div>
-            <h2>Beispielhafter Tagesplan für einen Ausflug</h2>
-            <ul>
-                <li><b>08:00 Uhr:</b> Anreise zur Region rund um Burg Eltz.</li>
-                <li><b>09:30 Uhr:</b> Wanderung durch den Elzbach-Talweg zur Burg mit wunderschönen Ausblicken.</li>
-                <li><b>11:00 Uhr:</b> Führung durch Burg Eltz und Besuch der Schatzkammer.</li>
-                <li><b>13:00 Uhr:</b> Mittagessen im Restaurant auf oder nahe der Burg.</li>
-                <li><b>14:30 Uhr:</b> Zeit für eigene Erkundungen und Fotografie der Umgebung.</li>
-                <li><b>16:00 Uhr:</b> Spaziergang zurück zum Ausgangspunkt oder ein Abstecher zu einer nahegelegenen Sehenswürdigkeit.</li>
-                <li><b>17:30 Uhr:</b> Rückfahrt und entspannte Heimreise.</li>
-            </ul>
-            <img src="logo.png" alt="Logo" class="logo">
-            <button onclick="goBack()">Zurück zum Quiz</button>
-        </div>
-    </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/animate.js/4.1.1/animate.min.js"></script>
-    <script src="script.js"></script>
+
+             <div class="card frosted-glass rounded-2xl p-4 md:p-6 cursor-pointer hover:scale-[1.03] transform transition-transform duration-300" data-content-id="meeting-point-content">
+                 <button class="close-button hidden"><i data-lucide="x" class="text-white"></i></button>
+                <div class="flex items-center mb-3">
+                    <i data-lucide="map-pin" class="mr-2 text-red-300 w-5 h-5"></i>
+                    <h2 class="text-lg md:text-xl font-bold">Treffpunkt</h2>
+                </div>
+                <p class="text-sm md:text-base text-gray-200">Parkplatz Burg Eltz</p>
+                <a href="https://maps.app.goo.gl/7MEmQo7K6gcYrBPQ9" target="_blank" class="text-sm text-blue-300 hover:text-blue-100 underline block mt-1">Auf Karte anzeigen (Extern)</a>
+                <div id="meeting-point-content" class="hidden expanded-content mt-4 text-sm md:text-base text-gray-200">
+                    <p>Wir treffen uns um 10:00 Uhr direkt am Wanderparkplatz der Burg Eltz.</p>
+                    <p class="mt-2">Adresse für Navigation (ungefähre Angabe, Beschilderung folgen): 56294 Wierschem</p>
+                    <p class="mt-2">Link zum Parkplatz (Beispiel): <a href="https://maps.app.goo.gl/7MEmQo7K6gcYrBPQ9" target="_blank" class="text-blue-300 hover:text-blue-100 underline">Google Maps Link</a></p>
+                    <p class="mt-2 font-semibold">Wichtig: Es gibt mehrere Parkplätze. Wir treffen uns am offiziellen Wanderparkplatz, von dem die Wanderwege starten.</p>
+                     <div class="mt-4 rounded-lg overflow-hidden"> <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2553.2630927151067!2d7.337220976414335!3d50.21230387154762!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47be69ad8ea49fa1%3A0xbb5d38e817a6d510!2sParkplatz%20Burg%20Eltz!5e0!3m2!1sde!2sde!4v1745735986152!5m2!1sde!2sde" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="w-full aspect-[4/3]"></iframe> </div>
+                </div>
+                 <div class="expand-indicator"><i data-lucide="maximize-2"></i></div>
+            </div>
+
+            <div class="card frosted-glass rounded-2xl p-4 md:p-6 cursor-pointer hover:scale-[1.03] transform transition-transform duration-300" data-content-id="travel-content">
+                 <button class="close-button hidden"><i data-lucide="x" class="text-white"></i></button>
+                <div class="flex items-center mb-3">
+                    <i data-lucide="car" class="mr-2 text-yellow-300 w-5 h-5"></i>
+                    <h2 class="text-lg md:text-xl font-bold">Anreise</h2>
+                </div>
+                 <ul class="list-none text-sm md:text-base text-gray-200 space-y-1">
+                    <li>Hülsenbusch: ~1:45h</li>
+                    <li>Ladenburg: ~1:50h</li>
+                 </ul>
+                <div id="travel-content" class="hidden expanded-content mt-4 text-sm md:text-base text-gray-200">
+                     <h3 class="text-lg font-semibold mb-2">Geschätzte Fahrzeiten:</h3>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li>
+                            <strong>Ab Hülsenbusch:</strong> ca. 1 Stunde 45 Minuten
+                            <a href="https://maps.app.goo.gl/yCUgB57yQeLkwWAx5" target="_blank" class="text-blue-300 hover:text-blue-100 underline ml-2">(Route)</a>
+                        </li>
+                        <li>
+                            <strong>Ab Ladenburg:</strong> ca. 1 Stunde 50 Minuten
+                            <a href="https://maps.app.goo.gl/MX9HuTxtbmWaHk8n8" target="_blank" class="text-blue-300 hover:text-blue-100 underline ml-2">(Route)</a>
+                        </li>
+                    </ul>
+                    <p class="mt-3">Bitte plant etwas Puffer für Verkehr ein, besonders an Wochenenden oder Feiertagen.</p>
+                </div>
+                 <div class="expand-indicator"><i data-lucide="maximize-2"></i></div>
+            </div>
+
+            <div class="card frosted-glass rounded-2xl p-4 md:p-6 lg:col-span-2 cursor-pointer hover:scale-[1.03] transform transition-transform duration-300" data-content-id="restaurants-content">
+                 <button class="close-button hidden"><i data-lucide="x" class="text-white"></i></button>
+                <div class="flex items-center mb-3">
+                    <i data-lucide="utensils-crossed" class="mr-2 text-orange-300 w-5 h-5"></i>
+                    <h2 class="text-lg md:text-xl font-bold">Essen in Cochem</h2>
+                </div>
+                <p class="text-sm md:text-base text-gray-200 line-clamp-2">Einige Top-Optionen laut TripAdvisor: Zom Stüffje, Restaurant Herbs, Et Da Vinci...</p> <ul class="list-none text-sm text-gray-300 space-y-1 mt-2 hidden"> <li>1. Zom Stüffje (Europäisch)</li>
+                    <li>2. Restaurant Herbs (Deutsch)</li>
+                    <li>3. Et Da Vinci (Italienisch)</li>
+                </ul>
+                <div id="restaurants-content" class="hidden expanded-content mt-4 text-sm md:text-base text-gray-200">
+                     <h3 class="text-lg font-semibold mb-2">Restaurant-Empfehlungen (Cochem):</h3>
+                     <p class="mb-3">Basierend auf TripAdvisor-Rankings (Stand: Beispielhaft):</p>
+                    <ol class="list-decimal list-inside space-y-3">
+                        <li><strong>Zom Stüffje:</strong> Europäisch, €€-€€€. Gemütlich.</li>
+                        <li><strong>Restaurant Herbs Im Hegenbarth's:</strong> Deutsch, Mitteleuropäisch, €€-€€€. Gut für Frühstück & Abendessen.</li>
+                        <li><strong>Et Da Vinci Cochem:</strong> Italienisch, International, €€-€€€.</li>
+                        <li><strong>Restaurant Zum Onkel Willi:</strong> Deutsch, Europäisch, €€-€€€.</li>
+                        <li><strong>Alte Gutsschänke:</strong> Deutsch, Europäisch, €€-€€€. Weinstube.</li>
+                        <li><strong>Vinoforum:</strong> Deutsch, Weinbar, €€-€€€. Modern.</li>
+                        <li><strong>Akropolis:</strong> Mediterran, Europäisch, €€-€€€. Griechisch.</li>
+                    </ol>
+                    <a href="https://www.tripadvisor.de/Restaurants-g198637-Cochem_Rhineland_Palatinate.html" target="_blank" class="text-blue-300 hover:text-blue-100 underline block mt-4">Alle Restaurants in Cochem auf TripAdvisor anzeigen</a>
+                </div>
+                 <div class="expand-indicator"><i data-lucide="maximize-2"></i></div>
+            </div>
+
+            <div class="card frosted-glass rounded-2xl p-4 md:p-6 cursor-pointer hover:scale-[1.03] transform transition-transform duration-300" data-content-id="tours-content">
+                 <button class="close-button hidden"><i data-lucide="x" class="text-white"></i></button>
+                <div class="flex items-center mb-3">
+                    <i data-lucide="ticket" class="mr-2 text-purple-300 w-5 h-5"></i>
+                    <h2 class="text-lg md:text-xl font-bold">Burgführung</h2>
+                </div>
+                <p class="text-sm md:text-base text-gray-200">Täglich 9:30-17:00 (letzter Einlass). Führung ca. 40 min.</p>
+                <p class="text-sm md:text-base text-gray-200 mt-1">Preis: 14€ Erw.</p>
+                <div id="tours-content" class="hidden expanded-content mt-4 text-sm md:text-base text-gray-200">
+                    <h3 class="text-lg font-semibold mb-2">Führungen & Tickets (Burg Eltz):</h3>
+                    <p><strong>Öffnungszeiten (Saison 2025):</strong> 1. April bis 1. November, täglich 9:30 bis 17:00 Uhr (letzter Einlass am Burgtor).</p>
+                    <p class="mt-2"><strong>Führungen:</strong> Starten regelmäßig ab 09:30 Uhr im oberen Burghof. Dauer ca. 35-40 Minuten. Letzte Führung beginnt um 17:30 Uhr.</p>
+                    <p class="mt-2"><strong>Eintrittspreise (inkl. Führung, Innenhof, Schatzkammer):</strong></p>
+                    <ul class="list-disc list-inside ml-4 mt-1 space-y-1">
+                        <li>Erwachsene: 14 €</li>
+                        <li>Erwachsene (Gruppe ab 20 Pers.): 13 € p.P.</li>
+                        <li>Schüler/innen, Studierende, Behinderte: 7 €</li>
+                        <li>Schüler/innen (Klassen): 6 € p.P.</li>
+                        <li>Familienkarte (2 Erw. + min. 1 Kind U18): 34 €</li>
+                        <li>Kinder unter 6 Jahren: Freier Eintritt</li>
+                    </ul>
+                     <p class="mt-3 font-semibold">Optional: Reichsburg Cochem</p>
+                     <p>Falls wir uns dafür entscheiden: Öffnungszeiten und Preise separat prüfen. Die Reichsburg thront über Cochem und bietet ebenfalls Führungen an.</p>
+                </div>
+                 <div class="expand-indicator"><i data-lucide="maximize-2"></i></div>
+            </div>
+
+            <div class="card frosted-glass rounded-2xl p-4 md:p-6 lg:col-span-2 cursor-pointer hover:scale-[1.03] transform transition-transform duration-300" data-content-id="hiking-content">
+                 <button class="close-button hidden"><i data-lucide="x" class="text-white"></i></button>
+                <div class="flex items-center mb-3">
+                    <i data-lucide="mountain" class="mr-2 text-teal-300 w-5 h-5"></i>
+                    <h2 class="text-lg md:text-xl font-bold">Wanderung</h2>
+                </div>
+                <p class="text-sm md:text-base text-gray-200">Panorama-Route: ca. 45 min (3.9km, ±100m). Leicht.</p>
+                 <a href="https://www.komoot.de/tour/2192941815?ref=aso&share_token=ajKJO8IHKtiEQ4ohqi0kTHhO7i2Unmi18lluZo57BX15a6TlCf" target="_blank" class="text-sm text-blue-300 hover:text-blue-100 underline block mt-1">Route auf Komoot</a>
+                <div id="hiking-content" class="hidden expanded-content mt-4 text-sm md:text-base text-gray-200">
+                    <h3 class="text-lg font-semibold mb-2">Details zur Panorama-Wanderung:</h3>
+                     <img src="https://d2exd72xrrp1s7.cloudfront.net/www/000/1k8/12/122pkzprfq5tabjvjihgziuyw54ckqx1u-uhi78491293/0?width=768&height=576&crop=false&q=70" alt="Wanderweg Ansicht" class="mb-4 rounded-lg w-full h-auto object-cover max-h-60" onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/ffffff?text=Bild+nicht+gefunden';">
+                    <ul class="list-disc list-inside space-y-1">
+                        <li><strong>Name:</strong> Burg Eltz – Blick auf die Burg Eltz Runde von Keldung (Beispielname von Komoot)</li>
+                        <li><strong>Schwierigkeit:</strong> Leicht</li>
+                        <li><strong>Distanz:</strong> ca. 3,93 km</li>
+                        <li><strong>Dauer:</strong> ca. 1 Stunde 8 Minuten (reine Gehzeit, wir planen 45 min ein)</li>
+                        <li><strong>Höhenmeter:</strong> ca. 100 m Aufstieg, 100 m Abstieg</li>
+                        <li><strong>Wegbeschaffenheit:</strong> Leicht begehbare Wege, für alle Fitnesslevel geeignet.</li>
+                        <li><strong>Alternative:</strong> Es gibt auch einen kürzeren, direkten Weg vom Parkplatz (ca. 10-15 min).</li>
+                    </ul>
+                    <a href="https://www.komoot.de/tour/2192941815?ref=aso&share_token=ajKJO8IHKtiEQ4ohqi0kTHhO7i2Unmi18lluZo57BX15a6TlCf" target="_blank" class="text-blue-300 hover:text-blue-100 underline block mt-3">Link zur Komoot-Tour</a>
+                </div>
+                 <div class="expand-indicator"><i data-lucide="maximize-2"></i></div>
+            </div>
+
+        </div> </div> <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        const cards = document.querySelectorAll('.card');
+        const overlay = document.getElementById('overlay');
+        let currentlyExpandedCard = null; // Keep track of the expanded card
+
+        cards.forEach(card => {
+            const contentId = card.getAttribute('data-content-id');
+            const contentElement = document.getElementById(contentId);
+            // Select summary elements more robustly
+            const summaryElements = card.querySelectorAll(':scope > p:not(.expanded-content p), :scope > ul:not(.expanded-content ul), :scope > a:not(.expanded-content a)');
+            const closeButton = card.querySelector('.close-button'); // Find the close button within the card
+            const expandIndicator = card.querySelector('.expand-indicator'); // Find the expand indicator
+
+            // Ensure the close button icon is created
+            if (closeButton) {
+                 lucide.createIcons({ nodes: [closeButton.querySelector('i')] });
+                 closeButton.onclick = (event) => {
+                    event.stopPropagation(); // Prevent card click event from firing again
+                    closeCard(card, contentElement, summaryElements, closeButton, expandIndicator);
+                 };
+            }
+             // Ensure the expand indicator icon is created
+            if (expandIndicator) {
+                 lucide.createIcons({ nodes: [expandIndicator.querySelector('i')] });
+            }
+
+
+            card.addEventListener('click', () => {
+                // If this card is already expanded, do nothing on card click (use close button)
+                if (card.classList.contains('expanded')) {
+                    return;
+                }
+
+                // If another card is expanded, close it first
+                if (currentlyExpandedCard && currentlyExpandedCard !== card) {
+                    const otherCardContentId = currentlyExpandedCard.getAttribute('data-content-id');
+                    const otherCardContent = document.getElementById(otherCardContentId);
+                     const otherSummaryElements = currentlyExpandedCard.querySelectorAll(':scope > p:not(.expanded-content p), :scope > ul:not(.expanded-content ul), :scope > a:not(.expanded-content a)');
+                    const otherCloseButton = currentlyExpandedCard.querySelector('.close-button');
+                    const otherExpandIndicator = currentlyExpandedCard.querySelector('.expand-indicator');
+                    closeCard(currentlyExpandedCard, otherCardContent, otherSummaryElements, otherCloseButton, otherExpandIndicator);
+                }
+
+                // Expand the clicked card
+                expandCard(card, contentElement, summaryElements, closeButton, expandIndicator);
+            });
+        });
+
+        // Close card when clicking on the overlay
+        overlay.addEventListener('click', () => {
+            if (currentlyExpandedCard) {
+                 const contentId = currentlyExpandedCard.getAttribute('data-content-id');
+                 const contentElement = document.getElementById(contentId);
+                 const summaryElements = currentlyExpandedCard.querySelectorAll(':scope > p:not(.expanded-content p), :scope > ul:not(.expanded-content ul), :scope > a:not(.expanded-content a)');
+                 const closeButton = currentlyExpandedCard.querySelector('.close-button');
+                 const expandIndicator = currentlyExpandedCard.querySelector('.expand-indicator');
+                 closeCard(currentlyExpandedCard, contentElement, summaryElements, closeButton, expandIndicator);
+            }
+        });
+
+        function expandCard(card, contentElement, summaryElements, closeButton, expandIndicator) {
+            overlay.style.display = 'block'; // Show overlay
+            document.body.style.overflow = 'hidden'; // Prevent body scrolling when modal is open
+
+            card.classList.add('expanded'); // Add expanded class for styling
+            card.classList.remove('cursor-pointer', 'hover:scale-[1.03]'); // Remove hover effects when expanded
+
+            // Hide summary elements
+            summaryElements.forEach(el => el.classList.add('hidden'));
+
+
+            if (contentElement) contentElement.classList.remove('hidden'); // Show detailed content
+            if (closeButton) closeButton.classList.remove('hidden'); // Show close button
+            if (expandIndicator) expandIndicator.style.opacity = '0'; // Hide expand indicator
+
+            currentlyExpandedCard = card; // Set as currently expanded
+
+            // Scroll expanded card content to top after a tiny delay to ensure layout is ready
+            setTimeout(() => {
+                 if (card) card.scrollTop = 0; // Scroll the card itself to top
+                 if (contentElement) contentElement.scrollTop = 0; // Scroll inner content div
+            }, 10);
+        }
+
+        function closeCard(card, contentElement, summaryElements, closeButton, expandIndicator) {
+            overlay.style.display = 'none'; // Hide overlay
+            document.body.style.overflow = ''; // Restore body scrolling
+
+            card.classList.remove('expanded'); // Remove expanded class
+            card.classList.add('cursor-pointer', 'hover:scale-[1.03]'); // Restore hover effects
+
+            if (contentElement) contentElement.classList.add('hidden'); // Hide detailed content
+
+             // Show summary elements
+            summaryElements.forEach(el => el.classList.remove('hidden'));
+
+
+            if (closeButton) closeButton.classList.add('hidden'); // Hide close button
+            if (expandIndicator) expandIndicator.style.opacity = '1'; // Show expand indicator
+
+            currentlyExpandedCard = null; // No card is expanded
+        }
+
+    </script>
+
 </body>
 </html>
