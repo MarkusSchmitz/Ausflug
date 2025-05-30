@@ -2,7 +2,8 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Familienausflug Burg Eltz</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Familienausflug Burg Eltz</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -42,13 +43,12 @@
             overflow-y: auto; /* Allow scrolling within expanded card */
             padding: 1.5rem 1rem 1rem 1rem; /* Adjusted padding for mobile */
         }
-         /* Apply more padding on larger screens for expanded card */
+        /* Apply more padding on larger screens for expanded card */
         @media (min-width: 768px) {
             .card.expanded {
-                 padding: 2rem;
+                padding: 2rem;
             }
         }
-
 
         /* Overlay for background when card is expanded */
         #overlay {
@@ -102,7 +102,7 @@
             color: #ffffff; /* Brighter on hover */
         }
 
-         /* Style for close button */
+        /* Style for close button */
         .close-button {
             position: absolute; /* Changed to absolute */
             top: 0.75rem; /* Adjusted position */
@@ -135,9 +135,9 @@
             opacity: 0; /* Hide when expanded */
         }
         .expand-indicator i {
-             width: 0.9rem;
-             height: 0.9rem;
-             stroke-width: 2.5;
+            width: 0.9rem;
+            height: 0.9rem;
+            stroke-width: 2.5;
         }
 
         /* Table Styling */
@@ -152,17 +152,30 @@
         }
         .timeline-table tr:last-child th,
         .timeline-table tr:last-child td {
-             border-bottom: none; /* Remove border from last row */
+            border-bottom: none; /* Remove border from last row */
         }
         .timeline-table td:first-child { /* Style time column */
             font-weight: 500;
             color: rgba(255, 255, 255, 0.9);
             white-space: nowrap; /* Prevent time from wrapping */
         }
-
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.25rem;
+        }
+        .menu-item-name {
+            flex-grow: 1;
+        }
+        .menu-item-price {
+            white-space: nowrap;
+            padding-left: 1rem; /* Space between name and price */
+        }
+      
     </style>
 </head>
-<body class="text-white min-h-screen p-4 md:p-8 antialiased"> <div id="overlay"></div>
+<body class="text-white min-h-screen p-4 md:p-8 antialiased">
+    <div id="overlay"></div>
 
     <div class="container mx-auto max-w-6xl">
         <h1 class="text-3xl sm:text-4xl md:text-6xl font-black text-center mb-6 md:mb-12 title-gradient">
@@ -172,25 +185,26 @@
         <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
 
             <div class="card frosted-glass rounded-2xl p-4 md:p-6 md:col-span-2 lg:col-span-2 cursor-pointer hover:scale-[1.03] transform transition-transform duration-300" data-content-id="overview-content">
-                 <button class="close-button hidden">
+                <button class="close-button hidden">
                     <i data-lucide="x" class="text-white"></i>
                 </button>
                 <div class="flex items-center mb-3">
                     <i data-lucide="info" class="mr-2 text-blue-300 w-5 h-5"></i>
                     <h2 class="text-lg md:text-xl font-bold">Überblick</h2>
                 </div>
-                <p class="text-sm md:text-base text-gray-200 line-clamp-3">Liebe Familie, wir machen unseren ersten Ausflug zur Burg Eltz! Dies ist unser Plan für einen schönen gemeinsamen Tag...</p> <div id="overview-content" class="hidden expanded-content mt-4 text-sm md:text-base text-gray-200">
+                <p class="text-sm md:text-base text-gray-200 line-clamp-3">Liebe Familie, wir machen unseren ersten Ausflug zur Burg Eltz! Dies ist unser Plan für einen schönen gemeinsamen Tag...</p>
+                <div id="overview-content" class="hidden expanded-content mt-4 text-sm md:text-base text-gray-200">
                     <p>Dies ist unser Plan für einen schönen gemeinsamen Tag. Die Burg Eltz ist eine der bekanntesten und besterhaltenen Burgen Deutschlands, eingebettet in ein malerisches Tal. Sie war über 700 Jahre lang im Besitz derselben Familie.</p>
                     <p class="mt-2">Wir werden wandern, die Burg besichtigen und optional noch Zeit in Cochem an der Mosel verbringen.</p>
-                     <img src="https://img.ecmaps.de/remote/.jpg?url=https%3A%2F%2Fresc.deskline.net%2Fimages%2FRPT%2F1%2F28e3b1ae-6b2f-432a-a33d-61cc7da66c97%2F99%2Fimage.jpg%3F637702396362800000&scale=both&mode=crop&quality=90&width=1920&height=1080" alt="[Bild der Burg Eltz]" class="mt-4 rounded-lg w-full h-auto object-cover max-h-60" onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/ffffff?text=Bild+nicht+gefunden';">
+                    <img src="https://img.ecmaps.de/remote/.jpg?url=https%3A%2F%2Fresc.deskline.net%2Fimages%2FRPT%2F1%2F28e3b1ae-6b2f-432a-a33d-61cc7da66c97%2F99%2Fimage.jpg%3F637702396362800000&scale=both&mode=crop&quality=90&width=1920&height=1080" alt="Bild der Burg Eltz" class="mt-4 rounded-lg w-full h-auto object-cover max-h-60" onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/ffffff?text=Bild+nicht+gefunden';">
                 </div>
-                 <div class="expand-indicator">
+                <div class="expand-indicator">
                     <i data-lucide="maximize-2"></i>
                 </div>
             </div>
 
             <div class="card frosted-glass rounded-2xl p-4 md:p-6 md:col-span-1 lg:col-span-2 cursor-pointer hover:scale-[1.03] transform transition-transform duration-300" data-content-id="schedule-content">
-                 <button class="close-button hidden"><i data-lucide="x" class="text-white"></i></button>
+                <button class="close-button hidden"><i data-lucide="x" class="text-white"></i></button>
                 <div class="flex items-center mb-3">
                     <i data-lucide="calendar-clock" class="mr-2 text-green-300 w-5 h-5"></i>
                     <h2 class="text-lg md:text-xl font-bold">Zeitplan (31.05 / 01.06)</h2>
@@ -198,55 +212,64 @@
                 <ul class="list-disc list-inside text-sm md:text-base text-gray-200 space-y-1">
                     <li>10:00 Treffen Parkplatz</li>
                     <li>10:00-10:45 Wanderung</li>
-                    <li>11:00-12:30 Burgführung</li>
-                    <li>13:00-14:00 Essen</li>
+                    <li>11:00-12:45 Burgführung & Besichtigung</li>
+                    <li>12:45-13:30 Snack in der Burg</li>
+                    <li>17:00-19:00 Abendessen Restaurant Herbs</li>
                 </ul>
-                 <div id="schedule-content" class="hidden expanded-content mt-4 text-sm md:text-base text-gray-200">
-                     <h3 class="text-lg font-semibold mb-3">Detaillierter Zeitplan:</h3>
-                     <table class="w-full timeline-table">
-                         <thead>
+                <div id="schedule-content" class="hidden expanded-content mt-4 text-sm md:text-base text-gray-200">
+                    <h3 class="text-lg font-semibold mb-3">Detaillierter Zeitplan:</h3>
+                    <table class="w-full timeline-table">
+                        <thead>
+                            <tr>
+                                <th>Zeit</th>
+                                <th>Aktivität</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>10:00 Uhr</td>
+                                <td>Treffen am Parkplatz nahe der Burg</td>
+                            </tr>
+                            <tr>
+                                <td>10:00 - 10:45 Uhr</td>
+                                <td>Wanderung zur Burg Eltz (15 min direkt, 45 min Panorama Route)</td>
+                            </tr>
+                            <tr>
+                                <td>11:00 - 12:45 Uhr</td>
+                                <td>Burgführung (ca. 45 min, 14€ p.P.) + eigenständige Besichtigung (ca. 30 min)</td>
+                            </tr>
+                            <tr>
+                                <td>12:45 - 13:30 Uhr</td>
+                                <td>Snack in der Burg</td>
+                            </tr>
+                            <tr>
+                                <td>13:30 - 14:15 Uhr</td>
+                                <td>Rückreise (ca. 15 min zum Parkplatz + 30 min nach Cochem)</td>
+                            </tr>
+                            <tr>
+                                <td>14:15 - 15:30 Uhr</td>
+                                <td>Optional: Besichtigung Reichsburg Cochem</td>
+                            </tr>
                              <tr>
-                                 <th>Zeit</th>
-                                 <th>Aktivität</th>
-                             </tr>
-                         </thead>
-                         <tbody>
-                             <tr>
-                                 <td>10:00 Uhr</td>
-                                 <td>Treffen am Parkplatz nahe der Burg</td>
-                             </tr>
-                             <tr>
-                                 <td>10:00 - 10:45 Uhr</td>
-                                 <td>Wanderung zur Burg Eltz (10 min direkt, 45 min Panorama Route)</td>
-                             </tr>
-                             <tr>
-                                 <td>11:00 - 12:30 Uhr</td>
-                                 <td>Burgführung (ca. 40 min, 14€ p.P.) + eigenständige Besichtigung (ca. 30 min)</td>
-                             </tr>
-                             <tr>
-                                 <td>13:00 - 14:00 Uhr</td>
-                                 <td>Mittagessen (Nähe Burg oder in Cochem)</td>
-                             </tr>
-                             <tr>
-                                 <td>14:15 - 15:30 Uhr</td>
-                                 <td>Optional: Besichtigung Reichsburg Cochem</td>
-                             </tr>
-                              <tr>
-                                 <td>15:30 - 17:00 Uhr</td>
-                                 <td>Optional: Spaziergang an der Moselpromenade Cochem</td>
-                             </tr>
-                             <tr>
-                                 <td>17:00 Uhr</td>
-                                 <td>Abreise</td>
-                             </tr>
-                         </tbody>
-                     </table>
+                                <td>15:30 - 17:00 Uhr</td>
+                                <td>Optional: Spaziergang an der Moselpromenade Cochem</td>
+                            </tr>
+                            <tr>
+                                <td>17:00 - 19:00 Uhr</td>
+                                <td>Abendessen Restaurant Herbs Im Hegenbarth's</td>
+                            </tr>
+                            <tr>
+                                <td>19:00 Uhr</td>
+                                <td>Abreise</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-                 <div class="expand-indicator"><i data-lucide="maximize-2"></i></div>
+                <div class="expand-indicator"><i data-lucide="maximize-2"></i></div>
             </div>
 
-             <div class="card frosted-glass rounded-2xl p-4 md:p-6 cursor-pointer hover:scale-[1.03] transform transition-transform duration-300" data-content-id="meeting-point-content">
-                 <button class="close-button hidden"><i data-lucide="x" class="text-white"></i></button>
+            <div class="card frosted-glass rounded-2xl p-4 md:p-6 lg:col-span-1 cursor-pointer hover:scale-[1.03] transform transition-transform duration-300" data-content-id="meeting-point-content">
+                <button class="close-button hidden"><i data-lucide="x" class="text-white"></i></button>
                 <div class="flex items-center mb-3">
                     <i data-lucide="map-pin" class="mr-2 text-red-300 w-5 h-5"></i>
                     <h2 class="text-lg md:text-xl font-bold">Treffpunkt</h2>
@@ -258,23 +281,25 @@
                     <p class="mt-2">Adresse für Navigation (ungefähre Angabe, Beschilderung folgen): 56294 Wierschem</p>
                     <p class="mt-2">Link zum Parkplatz (Beispiel): <a href="https://maps.app.goo.gl/7MEmQo7K6gcYrBPQ9" target="_blank" class="text-blue-300 hover:text-blue-100 underline">Google Maps Link</a></p>
                     <p class="mt-2 font-semibold">Wichtig: Es gibt mehrere Parkplätze. Wir treffen uns am offiziellen Wanderparkplatz, von dem die Wanderwege starten.</p>
-                     <div class="mt-4 rounded-lg overflow-hidden"> <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2553.2630927151067!2d7.337220976414335!3d50.21230387154762!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47be69ad8ea49fa1%3A0xbb5d38e817a6d510!2sParkplatz%20Burg%20Eltz!5e0!3m2!1sde!2sde!4v1745735986152!5m2!1sde!2sde" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="w-full aspect-[4/3]"></iframe> </div>
+                    <div class="mt-4 rounded-lg overflow-hidden">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2553.2630927151067!2d7.337220976414335!3d50.21230387154762!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47be69ad8ea49fa1%3A0xbb5d38e817a6d510!2sParkplatz%20Burg%20Eltz!5e0!3m2!1sde!2sde!4v1745735986152!5m2!1sde!2sde" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="w-full aspect-[4/3]"></iframe>
+                    </div>
                 </div>
-                 <div class="expand-indicator"><i data-lucide="maximize-2"></i></div>
+                <div class="expand-indicator"><i data-lucide="maximize-2"></i></div>
             </div>
 
-            <div class="card frosted-glass rounded-2xl p-4 md:p-6 cursor-pointer hover:scale-[1.03] transform transition-transform duration-300" data-content-id="travel-content">
-                 <button class="close-button hidden"><i data-lucide="x" class="text-white"></i></button>
+            <div class="card frosted-glass rounded-2xl p-4 md:p-6 lg:col-span-1 cursor-pointer hover:scale-[1.03] transform transition-transform duration-300" data-content-id="travel-content">
+                <button class="close-button hidden"><i data-lucide="x" class="text-white"></i></button>
                 <div class="flex items-center mb-3">
                     <i data-lucide="car" class="mr-2 text-yellow-300 w-5 h-5"></i>
                     <h2 class="text-lg md:text-xl font-bold">Anreise</h2>
                 </div>
-                 <ul class="list-none text-sm md:text-base text-gray-200 space-y-1">
+                <ul class="list-none text-sm md:text-base text-gray-200 space-y-1">
                     <li>Hülsenbusch: ~1:45h</li>
                     <li>Ladenburg: ~1:50h</li>
-                 </ul>
+                </ul>
                 <div id="travel-content" class="hidden expanded-content mt-4 text-sm md:text-base text-gray-200">
-                     <h3 class="text-lg font-semibold mb-2">Geschätzte Fahrzeiten:</h3>
+                    <h3 class="text-lg font-semibold mb-2">Geschätzte Fahrzeiten:</h3>
                     <ul class="list-disc list-inside space-y-2">
                         <li>
                             <strong>Ab Hülsenbusch:</strong> ca. 1 Stunde 45 Minuten
@@ -287,48 +312,41 @@
                     </ul>
                     <p class="mt-3">Bitte plant etwas Puffer für Verkehr ein, besonders an Wochenenden oder Feiertagen.</p>
                 </div>
-                 <div class="expand-indicator"><i data-lucide="maximize-2"></i></div>
+                <div class="expand-indicator"><i data-lucide="maximize-2"></i></div>
             </div>
-
-            <div class="card frosted-glass rounded-2xl p-4 md:p-6 lg:col-span-2 cursor-pointer hover:scale-[1.03] transform transition-transform duration-300" data-content-id="restaurants-content">
-                 <button class="close-button hidden"><i data-lucide="x" class="text-white"></i></button>
+            
+            <div class="card frosted-glass rounded-2xl p-4 md:p-6 lg:col-span-1 cursor-pointer hover:scale-[1.03] transform transition-transform duration-300" data-content-id="weather-content">
+                <button class="close-button hidden"><i data-lucide="x" class="text-white"></i></button>
                 <div class="flex items-center mb-3">
-                    <i data-lucide="utensils-crossed" class="mr-2 text-orange-300 w-5 h-5"></i>
-                    <h2 class="text-lg md:text-xl font-bold">Essen in Cochem</h2>
+                    <i data-lucide="cloud-sun" class="mr-2 text-sky-300 w-5 h-5"></i>
+                    <h2 class="text-lg md:text-xl font-bold">Wettervorhersage</h2>
                 </div>
-                <p class="text-sm md:text-base text-gray-200 line-clamp-2">Einige Top-Optionen laut TripAdvisor: Zom Stüffje, Restaurant Herbs, Et Da Vinci...</p> <ul class="list-none text-sm text-gray-300 space-y-1 mt-2 hidden"> <li>1. Zom Stüffje (Europäisch)</li>
-                    <li>2. Restaurant Herbs (Deutsch)</li>
-                    <li>3. Et Da Vinci (Italienisch)</li>
-                </ul>
-                <div id="restaurants-content" class="hidden expanded-content mt-4 text-sm md:text-base text-gray-200">
-                     <h3 class="text-lg font-semibold mb-2">Restaurant-Empfehlungen (Cochem):</h3>
-                     <p class="mb-3">Basierend auf TripAdvisor-Rankings (Stand: Beispielhaft):</p>
-                    <ol class="list-decimal list-inside space-y-3">
-                        <li><strong>Zom Stüffje:</strong> Europäisch, €€-€€€. Gemütlich.</li>
-                        <li><strong>Restaurant Herbs Im Hegenbarth's:</strong> Deutsch, Mitteleuropäisch, €€-€€€. Gut für Frühstück & Abendessen.</li>
-                        <li><strong>Et Da Vinci Cochem:</strong> Italienisch, International, €€-€€€.</li>
-                        <li><strong>Restaurant Zum Onkel Willi:</strong> Deutsch, Europäisch, €€-€€€.</li>
-                        <li><strong>Alte Gutsschänke:</strong> Deutsch, Europäisch, €€-€€€. Weinstube.</li>
-                        <li><strong>Vinoforum:</strong> Deutsch, Weinbar, €€-€€€. Modern.</li>
-                        <li><strong>Akropolis:</strong> Mediterran, Europäisch, €€-€€€. Griechisch.</li>
-                    </ol>
-                    <a href="https://www.tripadvisor.de/Restaurants-g198637-Cochem_Rhineland_Palatinate.html" target="_blank" class="text-blue-300 hover:text-blue-100 underline block mt-4">Alle Restaurants in Cochem auf TripAdvisor anzeigen</a>
+                <p class="text-sm md:text-base text-gray-200 line-clamp-2">Aktuelle Vorhersage für Wierschem. Klicke für Details.</p>
+                <div id="weather-content" class="hidden expanded-content mt-4 text-sm md:text-base text-gray-200">
+                    <h3 class="text-lg font-semibold mb-2">Wetter bei Burg Eltz (Wierschem):</h3>
+                    <div class="flex justify-center"> <a class="weatherwidget-io" href="https://forecast7.com/en/50d237d35/wierschem/" data-label_1="WIERSCHEM" data-label_2="WEATHER" data-theme="original" >WIERSCHEM WEATHER</a>
+                    </div>
+                    <script>
+                    // Placed script here to ensure it loads when content is made visible.
+                    // It has a check to prevent multiple loads.
+                    !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
+                    </script>
                 </div>
-                 <div class="expand-indicator"><i data-lucide="maximize-2"></i></div>
+                <div class="expand-indicator"><i data-lucide="maximize-2"></i></div>
             </div>
 
-            <div class="card frosted-glass rounded-2xl p-4 md:p-6 cursor-pointer hover:scale-[1.03] transform transition-transform duration-300" data-content-id="tours-content">
-                 <button class="close-button hidden"><i data-lucide="x" class="text-white"></i></button>
+            <div class="card frosted-glass rounded-2xl p-4 md:p-6 lg:col-span-1 cursor-pointer hover:scale-[1.03] transform transition-transform duration-300" data-content-id="tours-content">
+                <button class="close-button hidden"><i data-lucide="x" class="text-white"></i></button>
                 <div class="flex items-center mb-3">
                     <i data-lucide="ticket" class="mr-2 text-purple-300 w-5 h-5"></i>
                     <h2 class="text-lg md:text-xl font-bold">Burgführung</h2>
                 </div>
-                <p class="text-sm md:text-base text-gray-200">Täglich 9:30-17:00 (letzter Einlass). Führung ca. 40 min.</p>
+                <p class="text-sm md:text-base text-gray-200">Täglich 9:30-17:00 (letzter Einlass). Führung ca. 45 min.</p>
                 <p class="text-sm md:text-base text-gray-200 mt-1">Preis: 14€ Erw.</p>
                 <div id="tours-content" class="hidden expanded-content mt-4 text-sm md:text-base text-gray-200">
                     <h3 class="text-lg font-semibold mb-2">Führungen & Tickets (Burg Eltz):</h3>
                     <p><strong>Öffnungszeiten (Saison 2025):</strong> 1. April bis 1. November, täglich 9:30 bis 17:00 Uhr (letzter Einlass am Burgtor).</p>
-                    <p class="mt-2"><strong>Führungen:</strong> Starten regelmäßig ab 09:30 Uhr im oberen Burghof. Dauer ca. 35-40 Minuten. Letzte Führung beginnt um 17:30 Uhr.</p>
+                    <p class="mt-2"><strong>Führungen:</strong> Starten regelmäßig ab 09:30 Uhr im oberen Burghof. Dauer ca. 35-45 Minuten. Letzte Führung beginnt um 17:30 Uhr.</p>
                     <p class="mt-2"><strong>Eintrittspreise (inkl. Führung, Innenhof, Schatzkammer):</strong></p>
                     <ul class="list-disc list-inside ml-4 mt-1 space-y-1">
                         <li>Erwachsene: 14 €</li>
@@ -338,38 +356,116 @@
                         <li>Familienkarte (2 Erw. + min. 1 Kind U18): 34 €</li>
                         <li>Kinder unter 6 Jahren: Freier Eintritt</li>
                     </ul>
-                     <p class="mt-3 font-semibold">Optional: Reichsburg Cochem</p>
-                     <p>Falls wir uns dafür entscheiden: Öffnungszeiten und Preise separat prüfen. Die Reichsburg thront über Cochem und bietet ebenfalls Führungen an.</p>
+                    <p class="mt-3 font-semibold">Optional: Reichsburg Cochem</p>
+                    <p>Falls wir uns dafür entscheiden: Öffnungszeiten und Preise separat prüfen. Die Reichsburg thront über Cochem und bietet ebenfalls Führungen an.</p>
                 </div>
-                 <div class="expand-indicator"><i data-lucide="maximize-2"></i></div>
+                <div class="expand-indicator"><i data-lucide="maximize-2"></i></div>
+            </div>
+            
+            <div class="card frosted-glass rounded-2xl p-4 md:p-6 lg:col-span-2 cursor-pointer hover:scale-[1.03] transform transition-transform duration-300" data-content-id="restaurants-content">
+                <button class="close-button hidden"><i data-lucide="x" class="text-white"></i></button>
+                <div class="flex items-center mb-3">
+                    <i data-lucide="utensils-crossed" class="mr-2 text-orange-300 w-5 h-5"></i>
+                    <h2 class="text-lg md:text-xl font-bold">Abendessen in Cochem</h2>
+                </div>
+                <p class="text-sm md:text-base text-gray-200 line-clamp-2">Geplant: Restaurant Herbs Im Hegenbarth's. Weitere Optionen auf TripAdvisor.</p>
+                <div id="restaurants-content" class="hidden expanded-content mt-4 text-sm md:text-base text-gray-200">
+                    <h3 class="text-lg font-semibold mb-2">Abendessen: Restaurant Herbs Im Hegenbarth's</h3>
+                    <p class="mb-1">Link zur Speisekarte: <a href="https://hotel-hegenbarths.de/restaurant-herbs/#speisekarte" target="_blank" class="text-blue-300 hover:text-blue-100 underline">hotel-hegenbarths.de</a></p>
+                    
+                    <h4 class="text-md font-semibold mt-4 mb-2">Auszug aus der Saisonkarte (Beispiel):</h4>
+                    
+                    <h5 class="text-sm font-semibold mt-3 mb-1">Vorspeise</h5>
+                    <div class="menu-item">
+                        <span class="menu-item-name">Weiße Spargelcremesuppe mit Sahnehaube</span>
+                        <span class="menu-item-price">8,50 €</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="menu-item-name">Gegrillter marinierter Lachs an grünem Spargel und Gurken Tomaten Salsa</span>
+                        <span class="menu-item-price">16,50 €</span>
+                    </div>
+
+                    <h5 class="text-sm font-semibold mt-3 mb-1">Hauptgang</h5>
+                    <div class="menu-item">
+                        <span class="menu-item-name">300gr. Knackiger Spargel mit neuen Kartoffeln</span>
+                        <span class="menu-item-price">18,90 €</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="menu-item-name">Kl. Schnitzel vom Eifeler Landschwein, 300gr. Knackiger Spargel mit neuen Kartoffeln</span>
+                        <span class="menu-item-price">24,90 €</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="menu-item-name">Flammkuchen Spargel (Zitronen Schmand, grüner und weißer Spargel, Tomaten, Grana Padano)</span>
+                        <span class="menu-item-price">16,90 €</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="menu-item-name">Geschmorte Kaninchenkeule, Knackiger Spargel, Kartoffeln und Erbsen</span>
+                        <span class="menu-item-price">27,90 €</span>
+                    </div>
+                     <p class="text-xs mt-1 mb-2 text-gray-300">Zu allen Spargelgerichten servieren wir: Handgeschlagene Sauce Hollandaise oder zerlassene Butter.</p>
+                    <div class="menu-item">
+                        <span class="menu-item-name">Kalbsschnitzel, 300gr. Knackiger Spargel mit neuen Kartoffeln</span>
+                        <span class="menu-item-price">29,90 €</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="menu-item-name">Fisch des Tages, 300gr. Knackiger Spargel mit neuen Kartoffeln</span>
+                        <span class="menu-item-price">26,90 €</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="menu-item-name">Gebratenes Zanderfilet auf lauwarmen Spargel-Rhabarber-Salat mit Spargel-Bärlauch-Ravioli</span>
+                        <span class="menu-item-price">27,50 €</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="menu-item-name">Bandnudeln mit Bärlauchpesto, weißer und grüner Spargel, Tomaten und Grana Padano</span>
+                        <span class="menu-item-price">18,50 €</span>
+                    </div>
+                     <p class="text-xs mt-1 mb-2 text-gray-300">Zu allen Spargelgerichten servieren wir: Handgeschlagene Sauce Hollandaise oder zerlassene Butter.</p>
+
+                    <h5 class="text-sm font-semibold mt-3 mb-1">Dessert</h5>
+                    <div class="menu-item">
+                        <span class="menu-item-name">Pommes mal anders (Frittiertes Vanillegebäck mit Erdbeer Ketchup und Vanille Mayonnaise)</span>
+                        <span class="menu-item-price">8,90 €</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="menu-item-name">Weißes Schokoladenmousse, Himbeersauce und Haferflocken Crumble</span>
+                        <span class="menu-item-price">9,50 €</span>
+                    </div>
+                    
+                    <p class="mt-4">Für weitere Optionen:</p>
+                    <a href="https://www.tripadvisor.de/Restaurants-g198637-Cochem_Rhineland_Palatinate.html" target="_blank" class="text-blue-300 hover:text-blue-100 underline block">Alle Restaurants in Cochem auf TripAdvisor anzeigen</a>
+                </div>
+                <div class="expand-indicator"><i data-lucide="maximize-2"></i></div>
             </div>
 
             <div class="card frosted-glass rounded-2xl p-4 md:p-6 lg:col-span-2 cursor-pointer hover:scale-[1.03] transform transition-transform duration-300" data-content-id="hiking-content">
-                 <button class="close-button hidden"><i data-lucide="x" class="text-white"></i></button>
+                <button class="close-button hidden"><i data-lucide="x" class="text-white"></i></button>
                 <div class="flex items-center mb-3">
                     <i data-lucide="mountain" class="mr-2 text-teal-300 w-5 h-5"></i>
                     <h2 class="text-lg md:text-xl font-bold">Wanderung</h2>
                 </div>
-                <p class="text-sm md:text-base text-gray-200">Panorama-Route: ca. 45 min (3.9km, ±100m). Leicht.</p>
-                 <a href="https://www.komoot.de/tour/2192941815?ref=aso&share_token=ajKJO8IHKtiEQ4ohqi0kTHhO7i2Unmi18lluZo57BX15a6TlCf" target="_blank" class="text-sm text-blue-300 hover:text-blue-100 underline block mt-1">Route auf Komoot</a>
+                <p class="text-sm md:text-base text-gray-200">Tour nach Burg Eltz: ca. 29 min (1.4km). Leicht.</p>
+                <a href="https://www.komoot.com/tour/2283402369" target="_blank" class="text-sm text-blue-300 hover:text-blue-100 underline block mt-1">Route auf Komoot</a>
                 <div id="hiking-content" class="hidden expanded-content mt-4 text-sm md:text-base text-gray-200">
-                    <h3 class="text-lg font-semibold mb-2">Details zur Panorama-Wanderung:</h3>
-                     <img src="https://d2exd72xrrp1s7.cloudfront.net/www/000/1k8/12/122pkzprfq5tabjvjihgziuyw54ckqx1u-uhi78491293/0?width=768&height=576&crop=false&q=70" alt="Wanderweg Ansicht" class="mb-4 rounded-lg w-full h-auto object-cover max-h-60" onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/ffffff?text=Bild+nicht+gefunden';">
+                    <h3 class="text-lg font-semibold mb-2">Details zur Wanderung: Tour nach Burg Eltz</h3>
+                     <img src="https://tourpic-vector.maps.komoot.net/r/big/sus%5DgjnCSb@%3FFDRLTFCHYBDFAH@JRJLVQHDLR%3FSFUJA/?width=2000&height=740&scale=2" alt="Kartenansicht der Wanderroute von Komoot" class="mb-4 rounded-lg w-full h-auto object-cover max-h-60" onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/ffffff?text=Bild+nicht+gefunden';">
                     <ul class="list-disc list-inside space-y-1">
-                        <li><strong>Name:</strong> Burg Eltz – Blick auf die Burg Eltz Runde von Keldung (Beispielname von Komoot)</li>
+                        <li><strong>Name:</strong> Tour nach Burg Eltz (Komoot)</li>
                         <li><strong>Schwierigkeit:</strong> Leicht</li>
-                        <li><strong>Distanz:</strong> ca. 3,93 km</li>
-                        <li><strong>Dauer:</strong> ca. 1 Stunde 8 Minuten (reine Gehzeit, wir planen 45 min ein)</li>
-                        <li><strong>Höhenmeter:</strong> ca. 100 m Aufstieg, 100 m Abstieg</li>
-                        <li><strong>Wegbeschaffenheit:</strong> Leicht begehbare Wege, für alle Fitnesslevel geeignet.</li>
-                        <li><strong>Alternative:</strong> Es gibt auch einen kürzeren, direkten Weg vom Parkplatz (ca. 10-15 min).</li>
+                        <li><strong>Distanz:</strong> ca. 1,40 km</li>
+                        <li><strong>Dauer:</strong> ca. 29 Minuten (reine Gehzeit)</li>
+                        <li><strong>Höhenmeter:</strong> ca. 0 m Aufstieg, 90 m Abstieg</li>
+                        <li><strong>Wegbeschaffenheit:</strong> Leichte Wanderung. Für alle Fitnesslevel. Leicht begehbare Wege. Kein besonderes Können erforderlich.</li>
+                        <li><strong>Hinweis im Zeitplan:</strong> Der Zeitplan erwähnt Optionen "15 min direkt, 45 min Panorama Route". Diese hier beschriebene Tour (29 Min.) ist eine gute Option.</li>
                     </ul>
-                    <a href="https://www.komoot.de/tour/2192941815?ref=aso&share_token=ajKJO8IHKtiEQ4ohqi0kTHhO7i2Unmi18lluZo57BX15a6TlCf" target="_blank" class="text-blue-300 hover:text-blue-100 underline block mt-3">Link zur Komoot-Tour</a>
+                    <a href="https://www.komoot.com/tour/2283402369" target="_blank" class="text-blue-300 hover:text-blue-100 underline block mt-3">Link zur Komoot-Tour</a>
                 </div>
-                 <div class="expand-indicator"><i data-lucide="maximize-2"></i></div>
+                <div class="expand-indicator"><i data-lucide="maximize-2"></i></div>
             </div>
 
-        </div> </div> <script>
+        </div>
+    </div>
+
+    <script>
         // Initialize Lucide icons
         lucide.createIcons();
 
@@ -387,17 +483,16 @@
 
             // Ensure the close button icon is created
             if (closeButton) {
-                 lucide.createIcons({ nodes: [closeButton.querySelector('i')] });
-                 closeButton.onclick = (event) => {
+                lucide.createIcons({ nodes: [closeButton.querySelector('i')] });
+                closeButton.onclick = (event) => {
                     event.stopPropagation(); // Prevent card click event from firing again
                     closeCard(card, contentElement, summaryElements, closeButton, expandIndicator);
-                 };
+                };
             }
-             // Ensure the expand indicator icon is created
+            // Ensure the expand indicator icon is created
             if (expandIndicator) {
-                 lucide.createIcons({ nodes: [expandIndicator.querySelector('i')] });
+                lucide.createIcons({ nodes: [expandIndicator.querySelector('i')] });
             }
-
 
             card.addEventListener('click', () => {
                 // If this card is already expanded, do nothing on card click (use close button)
@@ -409,7 +504,7 @@
                 if (currentlyExpandedCard && currentlyExpandedCard !== card) {
                     const otherCardContentId = currentlyExpandedCard.getAttribute('data-content-id');
                     const otherCardContent = document.getElementById(otherCardContentId);
-                     const otherSummaryElements = currentlyExpandedCard.querySelectorAll(':scope > p:not(.expanded-content p), :scope > ul:not(.expanded-content ul), :scope > a:not(.expanded-content a)');
+                    const otherSummaryElements = currentlyExpandedCard.querySelectorAll(':scope > p:not(.expanded-content p), :scope > ul:not(.expanded-content ul), :scope > a:not(.expanded-content a)');
                     const otherCloseButton = currentlyExpandedCard.querySelector('.close-button');
                     const otherExpandIndicator = currentlyExpandedCard.querySelector('.expand-indicator');
                     closeCard(currentlyExpandedCard, otherCardContent, otherSummaryElements, otherCloseButton, otherExpandIndicator);
@@ -423,12 +518,12 @@
         // Close card when clicking on the overlay
         overlay.addEventListener('click', () => {
             if (currentlyExpandedCard) {
-                 const contentId = currentlyExpandedCard.getAttribute('data-content-id');
-                 const contentElement = document.getElementById(contentId);
-                 const summaryElements = currentlyExpandedCard.querySelectorAll(':scope > p:not(.expanded-content p), :scope > ul:not(.expanded-content ul), :scope > a:not(.expanded-content a)');
-                 const closeButton = currentlyExpandedCard.querySelector('.close-button');
-                 const expandIndicator = currentlyExpandedCard.querySelector('.expand-indicator');
-                 closeCard(currentlyExpandedCard, contentElement, summaryElements, closeButton, expandIndicator);
+                const contentId = currentlyExpandedCard.getAttribute('data-content-id');
+                const contentElement = document.getElementById(contentId);
+                const summaryElements = currentlyExpandedCard.querySelectorAll(':scope > p:not(.expanded-content p), :scope > ul:not(.expanded-content ul), :scope > a:not(.expanded-content a)');
+                const closeButton = currentlyExpandedCard.querySelector('.close-button');
+                const expandIndicator = currentlyExpandedCard.querySelector('.expand-indicator');
+                closeCard(currentlyExpandedCard, contentElement, summaryElements, closeButton, expandIndicator);
             }
         });
 
@@ -442,17 +537,20 @@
             // Hide summary elements
             summaryElements.forEach(el => el.classList.add('hidden'));
 
-
-            if (contentElement) contentElement.classList.remove('hidden'); // Show detailed content
+            if (contentElement) {
+                contentElement.classList.remove('hidden'); // Show detailed content
+                // If this is the weather card, ensure its script is loaded/re-initialized if necessary
+                // The provided script for weatherwidget.io already checks if it's loaded, so just making sure it's in the DOM is enough.
+            }
             if (closeButton) closeButton.classList.remove('hidden'); // Show close button
             if (expandIndicator) expandIndicator.style.opacity = '0'; // Hide expand indicator
-
+            
             currentlyExpandedCard = card; // Set as currently expanded
 
             // Scroll expanded card content to top after a tiny delay to ensure layout is ready
             setTimeout(() => {
-                 if (card) card.scrollTop = 0; // Scroll the card itself to top
-                 if (contentElement) contentElement.scrollTop = 0; // Scroll inner content div
+                if (card) card.scrollTop = 0; // Scroll the card itself to top
+                if (contentElement) contentElement.scrollTop = 0; // Scroll inner content div
             }, 10);
         }
 
@@ -465,17 +563,14 @@
 
             if (contentElement) contentElement.classList.add('hidden'); // Hide detailed content
 
-             // Show summary elements
+            // Show summary elements
             summaryElements.forEach(el => el.classList.remove('hidden'));
-
 
             if (closeButton) closeButton.classList.add('hidden'); // Hide close button
             if (expandIndicator) expandIndicator.style.opacity = '1'; // Show expand indicator
 
             currentlyExpandedCard = null; // No card is expanded
         }
-
     </script>
-
 </body>
 </html>
