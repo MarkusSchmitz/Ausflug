@@ -321,16 +321,17 @@
                     <i data-lucide="cloud-sun" class="mr-2 text-sky-300 w-5 h-5"></i>
                     <h2 class="text-lg md:text-xl font-bold">Wettervorhersage</h2>
                 </div>
-                <p class="text-sm md:text-base text-gray-200 line-clamp-2">Aktuelle Vorhersage für Wierschem. Klicke für Details.</p>
+                <p class="text-sm md:text-base text-gray-200 line-clamp-2">Aktuelle Vorhersage für Wierschem (Proplanta). Klicke für Details.</p>
                 <div id="weather-content" class="hidden expanded-content mt-4 text-sm md:text-base text-gray-200">
-                    <h3 class="text-lg font-semibold mb-2">Wetter bei Burg Eltz (Wierschem):</h3>
-                    <div class="flex justify-center"> <a class="weatherwidget-io" href="https://forecast7.com/en/50d237d35/wierschem/" data-label_1="WIERSCHEM" data-label_2="WEATHER" data-theme="original" >WIERSCHEM WEATHER</a>
+                    <h3 class="text-lg font-semibold mb-3">Wetter bei Burg Eltz (Wierschem):</h3>
+                    <div class="flex justify-center items-center w-full">
+                         <iframe 
+                            src="https://www.proplanta.de/agrar-wetter/wierschem-agrarwetter.html" 
+                            style="width: 100%; height: 450px; border: none; max-width: 600px;" 
+                            title="Agrarwetter Wierschem von Proplanta"
+                            sandbox="allow-scripts allow-same-origin allow-popups allow-forms">
+                        </iframe>
                     </div>
-                    <script>
-                    // Placed script here to ensure it loads when content is made visible.
-                    // It has a check to prevent multiple loads.
-                    !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
-                    </script>
                 </div>
                 <div class="expand-indicator"><i data-lucide="maximize-2"></i></div>
             </div>
@@ -539,8 +540,6 @@
 
             if (contentElement) {
                 contentElement.classList.remove('hidden'); // Show detailed content
-                // If this is the weather card, ensure its script is loaded/re-initialized if necessary
-                // The provided script for weatherwidget.io already checks if it's loaded, so just making sure it's in the DOM is enough.
             }
             if (closeButton) closeButton.classList.remove('hidden'); // Show close button
             if (expandIndicator) expandIndicator.style.opacity = '0'; // Hide expand indicator
